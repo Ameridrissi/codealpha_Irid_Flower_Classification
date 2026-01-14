@@ -1,0 +1,34 @@
+import streamlit as st
+import pandas as pd
+import pickle
+from sklearn import datasets
+
+iris=datasets.load_iris()
+
+st.write('''
+# Application pour la prédiction de l'espèce d'Iris
+Cette application prédit si l'espèce d'Iris est: Setosa, Virginica ou Versicolor
+''')
+st.sidebar.header("Les dimensions de l'espèce:")
+
+def user_input():
+    sepal_length=st.sidebar.slider('La longeur du Sépale',4.3,7.9,5.3)
+    sepal_width=st.sidebar.slider('La largeur du Sépale',2.0,4.4,3.3)
+    petal_length=st.sidebar.slider('La longeur du Pétale',1.0,6.9,2.3)
+    petal_width=st.sidebar.slider('La largeur du Pétale',0.1,2.5,1.3)
+    data={'sepal_length':sepal_length,
+    'sepal_width':sepal_width,
+    'petal_length':petal_length,
+    'petal_width':petal_width
+    }
+    fleur_dimensions=pd.DataFrame(data,index=[0])
+    return fleur_dimensions
+df=user_input()
+st.subheader("On souhaite l'espèce de cette Iris:")
+st.write(df)
+
+# Charge le modéle developper
+model = pickle.load(open('modeltree', 'rb'))
+prediction=model.predict(df)
+st.subheader("L'espèce de cette Iris est:")
+st.write(iris.target_names[prediction])

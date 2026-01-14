@@ -1,0 +1,22 @@
+### 1. Compiler l'application Streamlit
+
+Lancer l'application Streamlit en local :
+
+streamlit run app.py
+
+
+### 2 Créer l'image Docker
+
+Créer l'image Docker à partir du Dockerfile :
+
+docker build -t nom_image .
+NB: N'oublier pas d'ajouter le point "." après le non de votre image
+
+
+### 3. Exécuter le conteneur Docker
+
+Démarrer le conteneur à l'aide de l'image créée :
+
+docker run -p 8501:8501 nom_image
+
+Accéder à l'application Streamlit dans votre navigateur à l'adresse: http://localhost:8501
